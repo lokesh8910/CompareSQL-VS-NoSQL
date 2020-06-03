@@ -1,0 +1,175 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        $(document).ready(function () {
+            var jsondata = $("#jsonData").val();
+            $("#searchResults").append($.parseHTML(jsondata));
+            var rows = $('#searchTable').find('tbody tr:has(td)');
+            var totalRows = rows.length;
+            for (i = 0; i < totalRows; i++) {
+                //rows[i].cells[0].attr("class", "searchkeywordid");
+                rows[i].cells[1].onclick = function () { getTweets(this) };
+            }
+            var recordPerPage = 10;
+            var totalPages = Math.ceil(totalRows / recordPerPage);
+            var $pages = $('<div id="pages"></div>');
+            for (i = 0; i < totalPages; i++) {
+                $('<span class="pageNumber">&nbsp;' + (i + 1) + '</span>').appendTo($pages);
+            }
+            $pages.appendTo('#searchResults');
+            $('.pageNumber').hover(function () {
+                $(this).addClass('focus');
+            }, function () {
+                $(this).removeClass('focus');
+            });
+            $('table').find('tbody tr:has(td)').hide();
+            var tr = $('table tbody tr:has(td)');
+            for (var i = 0; i <= recordPerPage - 1; i++) {
+
+                $(tr[i]).show();
+            }
+            $('span').click(function (event) {
+                $('#searchTable').find('tbody tr:has(td)').hide();
+                var nBegin = ($(this).text() - 1) * recordPerPage;
+                var nEnd = $(this).text() * recordPerPage - 1;
+                for (var i = nBegin; i <= nEnd; i++) {
+                    $(tr[i]).show();
+                }
+            });
+        });
+        function getTweets(cel) {
+            $("#twitterResults").empty();
+            $("#pagesTwitter").empty();
+            $.ajax({
+                type: "POST",
+                data: { keyword: cel.previousSibling.innerHTML },
+                url: '/getTweets',
+                success: function (data) {
+                    $("#twitterResults").append($.parseHTML(data));
+                    var rows = $('#twitterResult').find('tbody tr:has(td)');
+                    var totalRows = rows.length;
+                    var recordPerPage = 50;
+                    var totalPages = Math.ceil(totalRows / recordPerPage);
+                    var $pages = $('<div id="pagesTwitter"></div>');
+                    for (i = 0; i < totalPages; i++) {
+                        $('<span class="pageNumber">&nbsp;' + (i + 1) + '</span>').appendTo($pages);
+                    }
+                    $pages.appendTo('#searchResults');
+                    $('.pageNumber').hover(function () {
+                        $(this).addClass('focus');
+                    }, function () {
+                        $(this).removeClass('focus');
+                    });
+                    $('table').find('tbody tr:has(td)').hide();
+                    var tr = $('table tbody tr:has(td)');
+                    for (var i = 0; i <= recordPerPage - 1; i++) {
+
+                        $(tr[i]).show();
+                    }
+                    $('span').click(function (event) {
+                        $('#twitterResult').find('tbody tr:has(td)').hide();
+                        var nBegin = ($(this).text() - 1) * recordPerPage;
+                        var nEnd = $(this).text() * recordPerPage - 1;
+                        for (var i = nBegin; i <= nEnd; i++) {
+                            $(tr[i]).show();
+                        }
+                    });
+                },
+            });
+
+            //alert(cel.previousSibling.innerHTML);
+
+        }
+    </script>
+    <!--<script>
+        function CreateTableFromJSON() {
+            var data = $("#jsonData").val();
+            alert(data.val());
+            var myBooks = JSON.stringify(data);
+            alert(myBooks);
+            // EXTRACT VALUE FOR HTML HEADER.
+            // ('Book ID', 'Book Name', 'Category' and 'Price')
+            var col = [];
+            for (var i = 0; i < myBooks.length; i++) {
+                for (var key in myBooks[i]) {
+                    if (col.indexOf(key) === -1) {
+                        col.push(key);
+                    }
+                }
+            }
+
+            // CREATE DYNAMIC TABLE.
+            var table = document.createElement("table");
+
+            // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+            var tr = table.insertRow(-1);                   // TABLE ROW.
+
+            for (var i = 0; i < col.length; i++) {
+                var th = document.createElement("th");      // TABLE HEADER.
+                th.innerHTML = col[i];
+                tr.appendChild(th);
+            }
+
+            // ADD JSON DATA TO THE TABLE AS ROWS.
+            for (var i = 0; i < myBooks.length; i++) {
+
+                tr = table.insertRow(-1);
+
+                for (var j = 0; j < col.length; j++) {
+                    var tabCell = tr.insertCell(-1);
+                    tabCell.innerHTML = myBooks[i][col[j]];
+                }
+            }
+
+            // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+            var divContainer = document.getElementById("showData");
+            divContainer.innerHTML = "";
+            divContainer.appendChild(table);
+        }
+    </script>-->
+
+</head>
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card" style="text-align:left;width:1130px">
+        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+
+        Welcome back {{username}}
+
+        <a href="/logout" class="w3-padding-large w3-hover-red w3-hide-small w3-right">Logout</a>
+    </div>
+</div>
+<!--Hi {{username}}
+<div id="logout" style="text-align:right"><a href="/logout">Logout</a></div>-->
+<input type="hidden" id="jsonData" value="{{data}}" />
+<div class="w3-container w3-content w3-center w3-padding-64" ">
+    <p><font size="5" face="arial"><b>Please enter the required keyword below:</b></font></p>
+    </div>
+    <!--<p>Please enter the required keyword below:</p>-->
+    <form action="/RunTwitterApi" method="post">
+        <input type="text" name="keyword" placeholder="Enter the Keyword" />
+        <input type="text" name="time" placeholder="Enter the time in minutes" />
+        <input type="submit" value="Search" />
+    </form>
+    <!--<table id="" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Search KeyWordID</th>
+                <th>Search Text</th>
+                <th>Searched At</th>
+                <th>User ID</th>
+            </tr>
+        </thead>
+    </table>-->
+    <div id="searchResults"></div>
+    <div id="twitterResults"></div>
+    <!--<input type="button" onclick="CreateTableFromJSON()" value="Create Table From JSON" />-->
+    <p id="showData"></p>
+
+    {% endblock %}

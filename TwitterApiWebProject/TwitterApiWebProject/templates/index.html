@@ -1,0 +1,22 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}.</h2>
+<h3>{{ message }}</h3>
+<h4>{{loginmessage}}</h4>
+<!--<a href="/RunApi">Run Twitter Api</a>-->
+<form action="/login" method="post">
+    <input type="text" name="username" placeholder="User Name"/>
+    <input type="password" name="password" placeholder="Password"/>
+    <input type="submit" name="submit" value="Login" />
+</form>
+<p>Use this area to provide additional information.</p>
+<hr />
+<hr />
+<hr />
+<hr />
+<hr />
+<hr />
+<hr />
+{% endblock %}

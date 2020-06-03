@@ -1,0 +1,141 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    /*background-image: url('../images/cool-background.png');*/
+    /*background-size:cover*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.focus {
+    background-color: #ff00ff;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.pageNumber {
+    padding: 2px;
+}
+
+
+input[type=submit] {
+    width: 10%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=text], select {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+p {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+div {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    bottom: 0
+}
+
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    table td, table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    table tr:hover {
+        background-color: #ddd;
+    }
+
+    table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    table[id="searchTable"] tr td:nth-child(2) {
+        
+        cursor: pointer;
+        text-decoration: underline;
+    }
+p {text-align:center;}
+footer {text-align:center;}
+body {background-image:url('http://ftp.fr.xemacs.org/pub/CTAN/macros/latex/contrib/elpres/gradient1.png');
+            	background-repeat:repeat-x;
+            	background-size:cover;}
+form {text-align:center;}

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <!-- Define a viewport for Bootstrap's responsive rendering -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - My Twitter Api Application</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+
+    <script src="../static/scripts/jquery-1.10.2.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Navbar omitted -->
+    <div class="dbms">
+        <img src="/static/images/MONGODB-VS-MYSQL.jpg" alt="DBMS" width="600" height="200">
+    </div>
+    <div class="container body-content">
+        <!-- "content" block that pages are expected to override -->
+        {% block content %}{% endblock %}
+        <hr />
+        <footer>
+            <p>&copy; {{ year }} - My Twitter Api Application</p>
+        </footer>
+    </div>
+
+    <!-- Additional scripts; use the "scripts" block to add page-specific scripts.  -->
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="/static/scripts/respond.js"></script>
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>
